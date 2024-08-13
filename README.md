@@ -1,40 +1,52 @@
-# Welcome to Remix!
+# WMS Packiyo API Remix Application
 
-- 📖 [Remix docs](https://remix.run/docs)
+## Overview
 
-## Development
+This project implements a Warehouse Management System (WMS) using React for the front-end and includes server-side rendering (SSR). It demonstrates the ability to interact with a JSON-API for creating and retrieving products and orders.
 
-Run the dev server:
+## Features
 
-```shellscript
-npm run dev
-```
+- **Product Management**: List, create, and view product details.
+- **Order Management**: Create orders and view order details.
+- **Server-Side Rendering**: Improves performance and SEO.
 
-## Deployment
+## Technologies Used
 
-First, build your app for production:
+- **Remix**: Framework for server-side rendering with React.
+- **Axios**: Library for making HTTP requests.
+- **Tailwind**: Basic styling for the user interface.
 
-```sh
-npm run build
-```
+## API Details
 
-Then run the app in production mode:
+- **Base URL**: [https://staging1.internal1.packiyo.com](https://staging1.internal1.packiyo.com)
+- **User**: pedro+fe3@packiyo.com
+- **Password**: Pedro!1!
+- **Token**: 748|C3zKP2aDBIpU1iH7jpXwOyu7yzi03P37jwTeoWIM
+- **Docs**: [developers.packiyo.com](https://developers.packiyo.com)
+- **Customer ID**: 17
 
-```sh
-npm start
-```
+## Installation and Setup
 
-Now you'll need to pick a host to deploy it to.
+1. **Clone the Repository**:
+   ```
+   git clone https://github.com/pedrotmr/packiyo-assessment.git
 
-### DIY
+   cd packiyo-assessment
+   ```
 
-If you're familiar with deploying Node applications, the built-in Remix app server is production-ready.
+2. **Install Dependencies**:
+   ```
+    npm install
+   ```
 
-Make sure to deploy the output of `npm run build`
+3. **Run the Application**:
+   ```
+    npm run dev
+   ```
 
-- `build/server`
-- `build/client`
+## Testing
 
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever css framework you prefer. See the [Vite docs on css](https://vitejs.dev/guide/features.html#css) for more information.
+Unit tests are included to verify component functionality and API integration. Run tests with:
+ ```
+ npm run test
+ ```

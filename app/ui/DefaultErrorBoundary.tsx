@@ -11,7 +11,7 @@ const DefaultErrorBoundary = ({
   children,
 }: DefaultErrorBoundaryProps) => {
   const error = useRouteError();
-  console.error(error);
+
   const renderContent = () => (
     <div className="flex flex-col items-center justify-center gap-4 rounded-lg bg-gray-100 py-44">
       <h1 className="text-3xl font-bold text-red-600">
