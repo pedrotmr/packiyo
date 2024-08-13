@@ -1,13 +1,24 @@
+import { MetaFunction } from "@remix-run/node";
 import {
   Links,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
+  useNavigation,
 } from "@remix-run/react";
-import "./tailwind.css";
+import "./styles.css";
+import LoadingSpinner from "./ui/LoadingSpinner";
+import NavBar from "./ui/NavBar";
 
-export function Layout({ children }: { children: React.ReactNode }) {
+export const meta: MetaFunction = () => [
+  { title: "Packiyo" },
+  { name: "description", content: "Welcome to Packiyo!" },
+];
+
+const Root = () => {
+  const navigation = useNavigation();
+
   return (
     <html lang="en">
       <head>
@@ -16,15 +27,16 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body>
-        {children}
+      <body className="overscroll-y-none">
+        <NavBar />
+        <div className="p-8">
+          {navigation.state === "loading" ? <LoadingSpinner /> : <Outlet />}
+        </div>
         <ScrollRestoration />
         <Scripts />
       </body>
     </html>
   );
-}
+};
 
-export default function App() {
-  return <Outlet />;
-}
+export default Root;
