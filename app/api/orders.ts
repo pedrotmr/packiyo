@@ -1,8 +1,7 @@
 import { OrderResponse, SingleOrderResponse } from "~/api/types/orders";
 import api from "./api-handler";
 
-export const getOrders = async () => {
-  const params: URLSearchParams = new URLSearchParams({ sort: "-created_at" });
+export const getOrders = async (params: URLSearchParams) => {
   const orders = await api.get<OrderResponse>("orders", params);
   return orders;
 };

@@ -1,6 +1,7 @@
 import { Link, useLoaderData } from "@remix-run/react";
 import { CUSTOMER_ID } from "~/api/api-handler";
 import { OrderResponse } from "~/api/types/orders";
+import Paginator from "~/ui/Paginator";
 
 const OrdersList = () => {
   const data = useLoaderData<OrderResponse>();
@@ -51,6 +52,8 @@ const OrdersList = () => {
           ))}
         </tbody>
       </table>
+
+      {data?.meta?.page && <Paginator paginationData={data?.meta?.page} />}
     </div>
   );
 };

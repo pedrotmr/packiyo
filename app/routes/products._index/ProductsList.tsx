@@ -5,6 +5,7 @@ import {
   ProductResponse,
   SingleProductResponse,
 } from "~/api/types/products";
+import Paginator from "~/ui/Paginator";
 
 type getImageProps = {
   response: ProductResponse | SingleProductResponse;
@@ -73,6 +74,8 @@ const ProductsList = () => {
           ))}
         </tbody>
       </table>
+
+      {data?.meta?.page && <Paginator paginationData={data?.meta?.page} />}
     </div>
   );
 };
