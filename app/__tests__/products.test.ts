@@ -1,6 +1,6 @@
 import { redirect } from "@remix-run/node";
 import { describe, expect, it, vi } from "vitest";
-import { CUSTOMER_ID } from "~/api/api-handler";
+import { BASE_URL, CUSTOMER_ID } from "~/api/api-handler";
 import { createProduct, getProducts } from "~/api/products";
 import { ProductResponse } from "~/api/types/products";
 import { loader as productsLoader } from "~/routes/products._index/route";
@@ -13,7 +13,8 @@ vi.mock("~/api/products", () => ({
 
 describe("productsListLoader", () => {
   it("should return a Response object", async () => {
-    const response = await productsLoader();
+    const request = new Request(`${BASE_URL}/products`);
+    const response = await productsLoader({ request, params: {}, context: {} });
     expect(response).toBeInstanceOf(Response);
   });
 
@@ -22,7 +23,8 @@ describe("productsListLoader", () => {
       data: [{ id: "#1", type: "products", attributes: { name: "Product 1" } }],
     };
     vi.mocked(getProducts).mockResolvedValue(mockData as ProductResponse);
-    const response = await productsLoader();
+    const request = new Request(`${BASE_URL}/products`);
+    const response = await productsLoader({ request, params: {}, context: {} });
     const data = await response.json();
     expect(data).toEqual(mockData);
     expect(response.status).toBe(200);
@@ -33,7 +35,8 @@ describe("productsListLoader", () => {
       new Error("Failed to fetch products"),
     );
     try {
-      await productsLoader();
+      const request = new Request(`${BASE_URL}/products`);
+      await productsLoader({ request, params: {}, context: {} });
     } catch (error) {
       expect(error).toBeInstanceOf(Error);
       expect((error as Error).message).toBe("Failed to fetch products");
@@ -42,7 +45,8 @@ describe("productsListLoader", () => {
 
   it("should return an empty array when no products are found", async () => {
     vi.mocked(getProducts).mockResolvedValue({ data: [] });
-    const response = await productsLoader();
+    const request = new Request(`${BASE_URL}/products`);
+    const response = await productsLoader({ request, params: {}, context: {} });
     const data = await response.json();
     expect(data).toEqual({ data: [] });
   });

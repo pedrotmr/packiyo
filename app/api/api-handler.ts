@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, isAxiosError } from "axios";
 
-const BASE_URL: string = "https://staging1.internal1.packiyo.com/api/v1";
+export const BASE_URL: string = "https://staging1.internal1.packiyo.com/api/v1";
 const TOKEN: string = "748|C3zKP2aDBIpU1iH7jpXwOyu7yzi03P37jwTeoWIM";
 export const CUSTOMER_ID: string = "17";
 

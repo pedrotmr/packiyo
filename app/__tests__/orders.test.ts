@@ -1,6 +1,6 @@
 import { redirect } from "@remix-run/node";
 import { describe, expect, it, vi } from "vitest";
-import { CUSTOMER_ID } from "~/api/api-handler";
+import { BASE_URL, CUSTOMER_ID } from "~/api/api-handler";
 import { createOrder, getOrderDetails, getOrders } from "~/api/orders";
 import { OrderResponse, SingleOrderResponse } from "~/api/types/orders";
 import { loader as orderDetailLoader } from "~/routes/orders.$id/route";
@@ -15,7 +15,12 @@ vi.mock("~/api/orders", () => ({
 
 describe("orderListLoader", () => {
   it("should return a Response object", async () => {
-    const response = await orderListLoader();
+    const request = new Request(`${BASE_URL}/orders`);
+    const response = await orderListLoader({
+      request,
+      params: {},
+      context: {},
+    });
     expect(response).toBeInstanceOf(Response);
   });
 
@@ -24,7 +29,12 @@ describe("orderListLoader", () => {
       data: [{ id: "#12312", type: "orders", attributes: { number: "12" } }],
     };
     vi.mocked(getOrders).mockResolvedValue(mockData as OrderResponse);
-    const response = await orderListLoader();
+    const request = new Request(`${BASE_URL}/orders`);
+    const response = await orderListLoader({
+      request,
+      params: {},
+      context: {},
+    });
     const data = await response.json();
     expect(data).toEqual(mockData);
     expect(response.status).toBe(200);
@@ -33,7 +43,8 @@ describe("orderListLoader", () => {
   it("should handle API failure", async () => {
     vi.mocked(getOrders).mockRejectedValue(new Error("Failed to fetch orders"));
     try {
-      await orderListLoader();
+      const request = new Request(`${BASE_URL}/orders`);
+      await orderListLoader({ request, params: {}, context: {} });
     } catch (error) {
       expect(error).toBeInstanceOf(Error);
       expect((error as Error).message).toBe("Failed to fetch orders");
@@ -42,7 +53,12 @@ describe("orderListLoader", () => {
 
   it("should return an empty array when no orders are found", async () => {
     vi.mocked(getOrders).mockResolvedValue({ data: [] });
-    const response = await orderListLoader();
+    const request = new Request(`${BASE_URL}/orders`);
+    const response = await orderListLoader({
+      request,
+      params: {},
+      context: {},
+    });
     const data = await response.json();
     expect(data).toEqual({ data: [] });
   });
@@ -55,7 +71,12 @@ describe("orderListLoader", () => {
     const promise = new Promise((resolve) => (resolvePromise = resolve));
     vi.mocked(getOrders).mockReturnValue(promise as Promise<OrderResponse>);
     setTimeout(() => resolvePromise(mockData), 100);
-    const response = await orderListLoader();
+    const request = new Request(`${BASE_URL}/orders`);
+    const response = await orderListLoader({
+      request,
+      params: {},
+      context: {},
+    });
     const data = await response.json();
     expect(data).toEqual(mockData);
   });
