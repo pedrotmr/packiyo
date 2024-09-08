@@ -29,9 +29,9 @@ This project implements a Warehouse Management System (WMS) using React for the 
 
 1. **Clone the Repository**:
    ```
-   git clone https://github.com/pedrotmr/packiyo-assessment.git
+   git clone https://github.com/pedrotmr/packiyo
 
-   cd packiyo-assessment
+   cd packiyo
    ```
 
 2. **Install Dependencies**:
